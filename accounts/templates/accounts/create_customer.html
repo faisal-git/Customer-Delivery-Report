@@ -1,0 +1,19 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+	<div class="col-md">
+		<h4>Details of new customer</h4>
+		<hr>
+		<div class="card card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{form}}
+                <input class="btn btn-sm btn-info" type='submit' name='submit' value='Add Customer'>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
