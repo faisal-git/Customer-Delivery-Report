@@ -9,8 +9,8 @@
 		<div class="card card-body">
 			<h5>Customer:</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_customer' customer.id %}">Update Customer</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'place_orders' customer.id %}">Place Orders</a>
 
 		</div>
 	</div>
@@ -40,9 +40,10 @@
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
+				{{Filter.form}}
 
-		    <button class="btn btn-primary" type="submit">Search</button>
-		  </form>
+		    	<button class="btn btn-primary" type="submit">Search</button>
+		    </form>
 		</div>
 	</div>
 	
@@ -61,18 +62,39 @@
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
-				{% for order in orders %}
+				{% for order in page %}
 				<tr>
 					<td>{{order.product.name}}</td>
 					<td>{{order.product.category}}</td>
 					<td>{{order.date_created}}</td>
 					<td>{{order.status}}</td>
-					<td><a class='btn btn-sm btn-info' href="">edit</a></td>
-					<td><a class='btn btn-sm btn-danger' href="">delete</a></td>
+					<td><a class='btn btn-sm btn-info' href="{% url 'update_order' order.id %}">edit</a></td>
+					<td><a class='btn btn-sm btn-danger' href="{% url 'delete_order' order.id %}">delete</a></td>
 				</tr>
 				{% endfor %}
+				
 			</table>
+				
+					
+
+				
 		</div>
+			{% if page.has_previous %}
+				<a href="?page=1" class="btn btn-sm btn-outline-info">First</a>
+				<a href="?page={{page.number|add:'-1'}}" class="btn btn-sm btn-outline-info">Previous</a>
+			{% endif %}
+			{% for page_num in paginator.page_range %}
+				{% if page_num == page.number %}
+					<a href="" class="btn btn-sm btn-info">{{page.number}}</a>
+				{% elif page_num > page.number|add:'-3' and page_num < page.number|add:'3' %}
+					<a href="?page={{page_num}}" class="btn btn-sm btn-outline-info">{{page_num}}</a>
+				{% endif %}
+			{% endfor %}
+			{% if page.has_next %}
+				<a href="?page={{page_num|add:'1'}}" class="btn btn-sm btn-outline-info">Next</a>
+				<a href="?page={{paginator.num_pages}}" class="btn btn-sm btn-outline-info">Last</a>
+			{% endif %}
+
 	</div>
 </div>
 

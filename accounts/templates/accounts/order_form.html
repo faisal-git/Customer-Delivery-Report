@@ -7,7 +7,21 @@
         <div class="card card-body">
             <form action="" method="POST">
                 {% csrf_token %}
-                {{form }}
+                {% if multipleOrder %}
+                    {{ form.management_form }}
+                    {% for eachForm in form%}
+                        <tr>
+                            <td>{{ eachForm }}</td>
+                        <hr>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>{{form }}</td>
+                    <hr>
+                    </tr>
+                        
+                {% endif %}
                 <input class="btn btn-sm btn-primary" type="submit" name="submit">
 
             </form>

@@ -39,7 +39,7 @@ class Order(models.Model):
         ('Delivered','Delivered')
         )
     date_created=models.DateField(auto_now_add=True,null=True)
-    status=models.CharField(max_length=20,null=True,choices=STATUS)
+    status=models.CharField(max_length=20,default='Pending',choices=STATUS)
 
     def __str__(self):
         return self.customer.name + "\'s order of " +self.product.name
