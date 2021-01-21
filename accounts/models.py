@@ -1,10 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 class Customer(models.Model):
+    user=models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     name=models.CharField(max_length=200,null=True)
     email=models.EmailField(max_length=50,null=True)
     phone=models.CharField(max_length=20,null=True)
+    image=models.ImageField(default='default.png',upload_to='profile_pics')
     date_created=models.DateField(auto_now_add=True,null=True)
 
 
@@ -24,6 +28,8 @@ class Product(models.Model):
     price=models.FloatField(max_length=200,null=True)
     category=models.CharField(max_length=200,null=True,choices=CATEGORY)
     description=models.CharField(max_length=500,null=True,blank=True)
+    image=models.ImageField(default='Default.png',upload_to='products_pics')
+
     date_created=models.DateField(auto_now_add=True,null=True)
     tag=models.ManyToManyField(Tag)
 
@@ -40,6 +46,7 @@ class Order(models.Model):
         )
     date_created=models.DateField(auto_now_add=True,null=True)
     status=models.CharField(max_length=20,default='Pending',choices=STATUS)
+    
 
     def __str__(self):
         return self.customer.name + "\'s order of " +self.product.name

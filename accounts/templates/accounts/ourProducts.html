@@ -1,0 +1,36 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<div class="row">
+    {% for item in productObjectList %}
+        <div class="col-md-3">
+            <div class="card card-body">
+                
+                <center>
+                    <h4><strong>{{item.name}}</strong></h4>
+                    <div class="round">
+                        <img class="thumbnail" style="width:75%;height:75%;"   src="{{item.image.url}}" >
+                    </div>
+                    <hr>
+                    <p><b>Rs.{{item.price}}</b><br>
+                    {{item.description}}</p>
+                
+                        
+                    
+                </center>
+                <a class="btn btn-info  btn-sm btn-block" href="">purchase</a>
+
+               
+                    
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+{% include 'accounts/pagination.html' %}
+
+{% endblock %}

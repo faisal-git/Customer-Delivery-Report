@@ -1,0 +1,46 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+{% include 'accounts/status.html' %}
+<div class="col-md">
+    <h5>RECENT ORDERS</h5>
+    <hr>
+    <div class="card card-body">
+        
+        <table class="table table-sm">
+            <tr>
+                <th>Product</th>
+                <th>Date Orderd</th>
+                <th>Status</th>
+                <th>Cancel</th>
+                <th>Return/Refund</th>
+                
+            </tr>
+            {% for order in page %}
+                <tr>
+                    <td>{{order.product}}</td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.status}}</td>
+                    {% if order.status == 'Pending' %}
+                        <td><a href="" class='btn  btn-outline-warning btn-sm'>Cancel</a></td>
+                    {% else %}
+                        <td><button type="button" class="btn btn-secondary btn-sm" disabled>Cancel</button>
+                        </td>
+                    {% endif %}
+                    {% if order.status == 'Pending' %}
+                        <td><a href="" class='btn  btn-outline-danger btn-sm'>Return</a></td>
+                    {% else %}
+                        <td><button type="button" class="btn btn-secondary btn-sm" disabled>Non Returnable</button>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+    
+        </table>
+    </div>
+</div>
+<br>
+<br>
+
+{% include 'accounts/pagination.html' %}
+{% endblock %}
